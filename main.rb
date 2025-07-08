@@ -6,6 +6,7 @@ module Mastermind
       @hidden_combination = [] 
       @colors = ['red', 'blue', 'orange', 'yellow', 'green', 'purple']
       @master = Master.new(self)
+      @hacker = Hacker.new(self)
     end
 
     def add_hidden_color!(color)
@@ -13,8 +14,8 @@ module Mastermind
     end
 
     def play
+      puts "Master turn to choose colors"
       @master.master_selects
-      p @hidden_combination
     end
 
   end
@@ -51,6 +52,9 @@ module Mastermind
       end
     end
 
+  end
+
+  class Hacker < Player
   end
 
 end
