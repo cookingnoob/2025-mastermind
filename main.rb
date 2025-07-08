@@ -5,8 +5,10 @@ module Mastermind
     attr_reader :hidden_combination, :colors
 
     def initialize
-      @master_combination = Array.new
+      # @master_combination = Array.new
+      @master_combination = ['blue', 'red', 'yellow', 'green']
       @hacker_combinations = Array.new
+      @hacker_clues = Array.new
       @colors = ['red', 'blue', 'orange', 'yellow', 'green', 'purple']
       @master = Master.new(self)
       @hacker = Hacker.new(self)
@@ -21,7 +23,16 @@ module Mastermind
       puts "Guess the colors and their order!"
       @hacker.colors_loop
       @hacker_combinations.push(@hacker.chosen_colors)
+      turn_clues = []
+      @hacker.chosen_colors.each_with_index do |c, i|
+        turn_clues.push('B') if @master_combination.find_index(c) == i
+        turn_clues.push('W') if @master_combination.include?(c)
+        turn_clues.push(' ') unless @master_combination.include?(c)
+      end
+      @hacker_clues.push(turn_clues)
+      p @master_combination
       p @hacker_combinations
+      p @hacker_clues
       # for each color in hacker check if it is in the master array
       # if it is check if they have the same index
       # if they do return b
@@ -54,7 +65,7 @@ module Mastermind
 
     def choose_colors!
       color_index = STDIN.noecho(&:gets)
-      @chosen_colors.push(@game.colors[color_index.to_i]) if right_input?(color_index.to_i)
+      @chosen_colors.push(@game.colors[color_index.to_i - 1]) if right_input?(color_index.to_i - 1)
     end
 
     def right_input?(index)
