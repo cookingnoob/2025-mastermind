@@ -5,7 +5,8 @@ module Mastermind
     attr_reader :hidden_combination, :colors
 
     def initialize
-      @master_combination = [] 
+      @master_combination = Array.new
+      @hacker_combinations = Array.new
       @colors = ['red', 'blue', 'orange', 'yellow', 'green', 'purple']
       @master = Master.new(self)
       @hacker = Hacker.new(self)
@@ -16,8 +17,14 @@ module Mastermind
     end
 
     def play
+      master_turn
+      puts "Guess the colors and their order!"
+    end
+
+    def master_turn
       puts "Master turn to choose colors"
-      @master.master_selects
+      @master.colors_loop
+      @master_combination = @master.chosen_colors      
     end
 
   end
@@ -25,40 +32,38 @@ module Mastermind
   class Player
     def initialize(game)
       @game = game
-      @chosen_color = ''
+      @chosen_colors = []
     end
-    attr_reader :chosen_color
+    attr_reader :chosen_colors
 
     def color_to_choose
       puts 'choose 4 colors from 1-6, input one number at a time and then click enter', @game.colors
     end
 
 
-    def choose_color!
+    def choose_colors!
       color_index = STDIN.noecho(&:gets)
-      @chosen_color = @game.colors[color_index.to_i] if right_input?(color_index.to_i)
+      @chosen_colors.push(@game.colors[color_index.to_i]) if right_input?(color_index.to_i)
     end
 
     def right_input?(index)
       if index < 0 || index > 5 || index.class != Integer
         puts 'wrong input!'
-        choose_color!
+        choose_colors!
       end
       true
+    end
+
+    def colors_loop
+      color_to_choose
+      4.times do 
+        choose_colors!
+      end
     end
     
   end
 
   class Master < Player
-    def master_selects
-      color_to_choose
-      4.times do 
-        choose_color!
-        @game.add_master_color!(@chosen_color)
-        @chosen_color = ''
-      end
-    end
-
   end
 
   class Hacker < Player
