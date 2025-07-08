@@ -53,11 +53,19 @@ module Mastermind
 
     def clues_loop(array = [])
       @hacker.chosen_colors.each_with_index do |c, i|
-         return array.push('B') if @master_combination.find_index(c) == i
-         return array.push('W') if @master_combination.include?(c)
-         return array.push(' ') unless @master_combination.include?(c)
+         clues_conditionals(c, i, array)
       end
       array
+    end
+
+    def clues_conditionals(c, i, array)
+      if @master_combination.find_index(c) == i
+        array.push('B') 
+      elsif @master_combination.include?(c)
+        array.push('W')
+      else 
+        array.push(' ') 
+      end
     end
 
   end
