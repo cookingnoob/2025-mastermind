@@ -21,15 +21,7 @@ module Mastermind
     def play
       # master_turn
       puts "Guess the colors and their order!"
-      @hacker.colors_loop
-      @hacker_combinations.push(@hacker.chosen_colors)
-      turn_clues = []
-      @hacker.chosen_colors.each_with_index do |c, i|
-        turn_clues.push('B') if @master_combination.find_index(c) == i
-        turn_clues.push('W') if @master_combination.include?(c)
-        turn_clues.push(' ') unless @master_combination.include?(c)
-      end
-      @hacker_clues.push(turn_clues)
+      hacker_turn
       p @master_combination
       p @hacker_combinations
       p @hacker_clues
@@ -47,6 +39,25 @@ module Mastermind
       puts "Master turn to choose colors"
       @master.colors_loop
       @master_combination = @master.chosen_colors      
+    end
+
+    def hacker_turn
+      @hacker.colors_loop
+      @hacker_combinations.push(@hacker.chosen_colors)
+      automated_clues
+    end
+
+    def automated_clues
+      @hacker_clues.push(clues_loop)
+    end
+
+    def clues_loop(array = [])
+      @hacker.chosen_colors.each_with_index do |c, i|
+         return array.push('B') if @master_combination.find_index(c) == i
+         return array.push('W') if @master_combination.include?(c)
+         return array.push(' ') unless @master_combination.include?(c)
+      end
+      array
     end
 
   end
