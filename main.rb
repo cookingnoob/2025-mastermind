@@ -17,8 +17,19 @@ module Mastermind
     end
 
     def play
-      master_turn
+      # master_turn
       puts "Guess the colors and their order!"
+      @hacker.colors_loop
+      @hacker_combinations.push(@hacker.chosen_colors)
+      p @hacker_combinations
+      # for each color in hacker check if it is in the master array
+      # if it is check if they have the same index
+      # if they do return b
+      # if the color is in the master but not in the position return w
+      # if not return ' '
+      # push hacker array and the tips array to hacker_combinations array
+      # display previous attemps
+      # repeat 10 times 
     end
 
     def master_turn
