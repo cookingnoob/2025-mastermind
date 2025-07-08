@@ -17,10 +17,6 @@ module Mastermind
       p @hidden_combination
     end
 
-    def handle_wrong_input
-      
-    end
-
   end
 
   class Player
@@ -33,8 +29,17 @@ module Mastermind
     def choose_color!
       puts 'choose 1 color from 1-6', @game.colors
       color_index = gets.to_i - 1
-      @chosen_color = @game.colors[color_index]
+      @chosen_color = @game.colors[color_index] if right_input?(color_index)
     end
+
+    def right_input?(index)
+      if index < 0 || index > 5 || index.class != Integer
+        puts 'wrong input!'
+        choose_color!
+      end
+      true
+    end
+    
   end
 
   class Master < Player
