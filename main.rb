@@ -5,32 +5,48 @@ module Mastermind
     def initialize
       @hidden_combination = [] 
       @colors = ['red', 'blue', 'orange', 'yellow', 'green', 'purple']
+      @master = Master.new(self)
+    end
+
+    def add_color(array, color)
+      array.push(color)
+    end
+
+    def play
+      @master.master_selects
+      p @hidden_combination
+    end
+
+  end
+
+  class Player
+    def initialize(game)
+      @game = game
       @chosen_color = ''
     end
-
+    attr_reader :chosen_color
+    
     def choose_color
-      puts 'choose 1 color from 1-6', @colors
+      puts 'choose 1 color from 1-6', @game.colors
       color_index = gets.to_i - 1
-      @chosen_color = @colors[color_index]
+      @chosen_color = @game.colors[color_index]
     end
+  end
 
-    def add_color(array)
-      array.push(@chosen_color)
-    end
-
-    def master_selection
+  class Master < Player
+    def master_selects
       4.times do 
         choose_color
-        add_color(@hidden_combination)
+        @game.add_color(@game.hidden_combination, @chosen_color)
         @chosen_color = ''
       end
     end
 
   end
+
 end
 
 include Mastermind
 
 game = Game.new
-game.master_selection
-p game.hidden_combination
+game.play
