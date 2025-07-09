@@ -120,6 +120,15 @@ module Mastermind
       @clues.push(clues_array)
     end
 
+    def clues
+      puts 'W if it is in index and color, B if its only the color, empty space if its none'
+      clues = []
+      4.times do
+        clues.push(gets.chomp)
+      end
+      @clues.push(clues)
+    end
+
     def clues_loop(array, hacker_combination)
       hacker_combination.each_with_index do |c, i|
            clues_conditionals(c, i, array)
