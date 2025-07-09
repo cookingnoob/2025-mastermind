@@ -1,5 +1,4 @@
 require 'io/console'
-
 module Mastermind
   class Game
     attr_reader :hidden_combination, :colors, :master_combination, :hacker_combinations
@@ -29,8 +28,10 @@ module Mastermind
     end
 
     def display_results
+
       @hacker_combinations.each_with_index do |comb, i|
         puts "turn #{i + 1} combination: #{comb}        clues: #{@hacker_clues[i]}"
+        puts '---------------------------------------------------------------------'
       end
     end
 
@@ -51,6 +52,7 @@ module Mastermind
       @hacker.colors_loop
       @hacker_combinations.push(@hacker.chosen_colors)
       automated_clues
+      @hacker.clear_selection
     end
 
     def automated_clues
@@ -108,6 +110,10 @@ module Mastermind
       end
     end
     
+    def clear_selection
+      @chosen_colors = []
+    end
+
   end
 
   class Master < Player
