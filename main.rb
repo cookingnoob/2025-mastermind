@@ -19,20 +19,16 @@ module Mastermind
     end
 
     def play
-      # master_turn
       puts "Guess the colors and their order!"
       hacker_turn
-      p @master_combination
-      p @hacker_combinations
-      p @hacker_clues
-      # for each color in hacker check if it is in the master array
-      # if it is check if they have the same index
-      # if they do return b
-      # if the color is in the master but not in the position return w
-      # if not return ' '
-      # push hacker array and the tips array to hacker_combinations array
-      # display previous attemps
+      p display_results
       # repeat 10 times 
+    end
+
+    def display_results
+      @hacker_combinations.each_with_index do |comb, i|
+        puts "turn #{i + 1} combination: #{comb}        clues: #{@hacker_clues[i]}"
+      end
     end
 
     def master_turn
@@ -55,7 +51,7 @@ module Mastermind
       @hacker.chosen_colors.each_with_index do |c, i|
          clues_conditionals(c, i, array)
       end
-      array
+      array.shuffle
     end
 
     def clues_conditionals(c, i, array)
