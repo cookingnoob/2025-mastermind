@@ -10,9 +10,8 @@ module Mastermind
     end
 
     def play
-      rol = choose_rol
-      computer_master_human_hacker 
-      human_master_computer_hacker if rol == 'm'
+      choose_rol
+      turn_loop
     end
 
     def choose_rol
