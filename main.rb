@@ -20,10 +20,12 @@ module Mastermind
 
     def play
       puts "Guess the colors and their order!"
-      hacker_turn
-      winner?
-      display_results
-      # repeat 10 times 
+      12.times do
+        hacker_turn
+        winner?
+        display_results
+      end
+      puts 'Master wins as the code was never guessed'
     end
 
     def display_results
