@@ -1,13 +1,9 @@
 require 'io/console'
 module Mastermind
   class Game
-    attr_reader :hidden_combination, :colors, :master_combination, :hacker_combinations
+    attr_reader :colors
 
     def initialize
-      # @master_combination = Array.new
-      @master_combination = ['blue', 'red', 'yellow', 'green']
-      @master_clues = Array.new
-      @hacker_combinations = Array.new
       @colors = ['red', 'blue', 'orange', 'yellow', 'green', 'purple']
       @master = Master.new(self)
       @hacker = Hacker.new(self)
@@ -15,7 +11,7 @@ module Mastermind
 
     def play
       @master.turn
-      puts 'Master wins as the code was never guessed'
+      @hacker.turn
     end
 
     def display_results
@@ -26,28 +22,19 @@ module Mastermind
     end
 
     def winner?
-     if @hacker.chosen_colors ==  @master_combination
+     if @hacker.chosen_colors ==  @master.combination
        puts "Hacker has guessed the combination, hacker wins!!"
        exit 
      end
     end
-
-    def hacker_turn
-      @hacker.colors_loop
-      winner?
-      @hacker_combinations.push(@hacker.chosen_colors)
-      automated_clues
-      @hacker.clear_selection
-    end
-
-
 
   end
 
   class Player
     def initialize(game)
       @game = game
-      @chosen_colors = []
+      @chosen_colors = Array.new
+      @combination = Array.new
     end
     attr_reader :chosen_colors
 
@@ -86,14 +73,13 @@ module Mastermind
     def initialize(game)
       super(game)
       @clues = Array.new
-      @combination = Array.new
     end
 
     def turn
       puts "Master turn to choose colors"
       self.colors_loop
-      @combination = self.chosen_colors      
-      p "master combination", @combination
+      @combination = @chosen_colors      
+      p @combination 
     end
 
     def automated_clues
@@ -119,6 +105,13 @@ module Mastermind
   end
 
   class Hacker < Player
+    def turn
+      puts "Hacker turn"
+      self.colors_loop
+      @combination.push(@chosen_colors)
+      self.clear_selection
+      p @combination
+    end
   end
 
 end
