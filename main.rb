@@ -6,31 +6,21 @@ module Mastermind
     def initialize
       # @master_combination = Array.new
       @master_combination = ['blue', 'red', 'yellow', 'green']
+      @master_clues = Array.new
       @hacker_combinations = Array.new
-      @hacker_clues = Array.new
       @colors = ['red', 'blue', 'orange', 'yellow', 'green', 'purple']
       @master = Master.new(self)
       @hacker = Hacker.new(self)
     end
 
-    def add_master_color!(color)
-      @master_combination.push(color)
-    end
-
     def play
-      puts "Guess the colors and their order!"
-      12.times do
-        hacker_turn
-   
-        display_results
-      end
+      @master.turn
       puts 'Master wins as the code was never guessed'
     end
 
     def display_results
-
       @hacker_combinations.each_with_index do |comb, i|
-        puts "turn #{i + 1} combination: #{comb}        clues: #{@hacker_clues[i]}"
+        puts "turn #{i + 1} combination: #{comb}        clues: #{@master_clues[i]}"
         puts '---------------------------------------------------------------------'
       end
     end
@@ -42,12 +32,6 @@ module Mastermind
      end
     end
 
-    def master_turn
-      puts "Master turn to choose colors"
-      @master.colors_loop
-      @master_combination = @master.chosen_colors      
-    end
-
     def hacker_turn
       @hacker.colors_loop
       winner?
@@ -56,26 +40,7 @@ module Mastermind
       @hacker.clear_selection
     end
 
-    def automated_clues
-      @hacker_clues.push(clues_loop)
-    end
 
-    def clues_loop(array = [])
-      @hacker.chosen_colors.each_with_index do |c, i|
-         clues_conditionals(c, i, array)
-      end
-      array.shuffle
-    end
-
-    def clues_conditionals(c, i, array)
-      if @master_combination.find_index(c) == i
-        array.push('B') 
-      elsif @master_combination.include?(c)
-        array.push('W')
-      else 
-        array.push(' ') 
-      end
-    end
 
   end
 
@@ -118,6 +83,39 @@ module Mastermind
   end
 
   class Master < Player
+    def initialize(game)
+      super(game)
+      @clues = Array.new
+      @combination = Array.new
+    end
+
+    def turn
+      puts "Master turn to choose colors"
+      self.colors_loop
+      @combination = self.chosen_colors      
+      p "master combination", @combination
+    end
+
+    def automated_clues
+      @clues.push(clues_loop)
+    end
+
+    def clues_loop(array = [], hacker_combination)
+      hacker_combination.each_with_index do |c, i|
+         clues_conditionals(c, i, array)
+      end
+      array.shuffle
+    end
+
+    def clues_conditionals(c, i, array)
+      if @combination.find_index(c) == i
+        array.push('B') 
+      elsif @combination.include?(c)
+        array.push('W')
+      else 
+        array.push(' ') 
+      end
+    end
   end
 
   class Hacker < Player
