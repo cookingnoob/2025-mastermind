@@ -2,7 +2,7 @@ require 'io/console'
 
 module Mastermind
   class Game
-    attr_reader :hidden_combination, :colors
+    attr_reader :hidden_combination, :colors, :master_combination, :hacker_combinations
 
     def initialize
       # @master_combination = Array.new
@@ -21,7 +21,8 @@ module Mastermind
     def play
       puts "Guess the colors and their order!"
       hacker_turn
-      p display_results
+      winner?
+      display_results
       # repeat 10 times 
     end
 
@@ -29,6 +30,13 @@ module Mastermind
       @hacker_combinations.each_with_index do |comb, i|
         puts "turn #{i + 1} combination: #{comb}        clues: #{@hacker_clues[i]}"
       end
+    end
+
+    def winner?
+     if @hacker.chosen_colors ==  @master_combination
+       puts "Hacker has guessed the combination, hacker wins!!"
+       exit 
+     end
     end
 
     def master_turn
