@@ -21,7 +21,7 @@ module Mastermind
       puts "Guess the colors and their order!"
       12.times do
         hacker_turn
-        winner?
+   
         display_results
       end
       puts 'Master wins as the code was never guessed'
@@ -50,6 +50,7 @@ module Mastermind
 
     def hacker_turn
       @hacker.colors_loop
+      winner?
       @hacker_combinations.push(@hacker.chosen_colors)
       automated_clues
       @hacker.clear_selection
