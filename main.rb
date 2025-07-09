@@ -39,7 +39,7 @@ module Mastermind
     attr_reader :chosen_colors
 
     def color_to_choose
-      puts 'choose 4 colors from 1-6, input one number at a time and then click enter', @game.colors
+      puts "choose 4 colors from 1-6, input one number at a time and then click enter #{@game.colors}"
     end
 
 
@@ -79,7 +79,6 @@ module Mastermind
       puts "Master turn to choose colors"
       self.colors_loop
       @combination = @chosen_colors      
-      p @combination 
     end
 
     def automated_clues
@@ -110,7 +109,6 @@ module Mastermind
       self.colors_loop
       @combination.push(@chosen_colors)
       self.clear_selection
-      p @combination
     end
   end
 
