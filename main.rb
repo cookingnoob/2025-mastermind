@@ -12,11 +12,13 @@ module Mastermind
     def play
       @master.turn
       @hacker.turn
+      @master.automated_clues(@hacker.chosen_colors)
+      display_results
     end
 
     def display_results
-      @hacker_combinations.each_with_index do |comb, i|
-        puts "turn #{i + 1} combination: #{comb}        clues: #{@master_clues[i]}"
+      @hacker.combination.each_with_index do |comb, i|
+        puts "turn #{i + 1} combination: #{comb}        clues: #{@master.clues[i]}"
         puts '---------------------------------------------------------------------'
       end
     end
@@ -36,7 +38,7 @@ module Mastermind
       @chosen_colors = Array.new
       @combination = Array.new
     end
-    attr_reader :chosen_colors
+    attr_reader :chosen_colors, :combination
 
     def color_to_choose
       puts "choose 4 colors from 1-6, input one number at a time and then click enter #{@game.colors}"
@@ -70,6 +72,7 @@ module Mastermind
   end
 
   class Master < Player
+    attr_reader :clues
     def initialize(game)
       super(game)
       @clues = Array.new
@@ -81,21 +84,23 @@ module Mastermind
       @combination = @chosen_colors      
     end
 
-    def automated_clues
-      @clues.push(clues_loop)
+    def automated_clues(hacker_combination)
+      clues_array = clues_loop([],hacker_combination)
+      @clues.push(clues_array)
     end
 
-    def clues_loop(array = [], hacker_combination)
+    def clues_loop(array, hacker_combination)
       hacker_combination.each_with_index do |c, i|
-         clues_conditionals(c, i, array)
-      end
+           clues_conditionals(c, i, array)
+        end
+        
       array.shuffle
     end
 
     def clues_conditionals(c, i, array)
-      if @combination.find_index(c) == i
+      if self.combination.find_index(c) == i
         array.push('B') 
-      elsif @combination.include?(c)
+      elsif self.combination.include?(c)
         array.push('W')
       else 
         array.push(' ') 
@@ -108,7 +113,6 @@ module Mastermind
       puts "Hacker turn"
       self.colors_loop
       @combination.push(@chosen_colors)
-      self.clear_selection
     end
   end
 
