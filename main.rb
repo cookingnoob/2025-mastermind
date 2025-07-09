@@ -11,13 +11,15 @@ module Mastermind
 
     def play
       rol = choose_rol
-      computer_master_human_hacker if rol == 'h'
+      computer_master_human_hacker 
       human_master_computer_hacker if rol == 'm'
     end
 
     def choose_rol
-      puts 'choose if you want to be master or hacker?'
+      puts 'choose if you want to be master or hacker? m/h'
       gets.chomp
+      @master = true  if rol == 'h'
+      @hacker = true if rol == 'm'
     end
 
     def computer_master_human_hacker
@@ -104,6 +106,7 @@ module Mastermind
     attr_reader :clues
     def initialize(game)
       super(game)
+      @bot = false
       @clues = Array.new
     end
 
@@ -138,6 +141,10 @@ module Mastermind
   end
 
   class Hacker < Player
+    def initialize
+      @bot = false  
+    end
+
     def turn
       puts "Hacker turn"
       self.colors_loop
