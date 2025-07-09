@@ -11,8 +11,21 @@ module Mastermind
 
     def play
       @master.turn
+      turn_loop
+      puts "Master won as the combination was not discovered! #{@master.combination}"
+    end
+
+    def turn_loop
+      12.times do
+        turn_flow
+      end
+    end
+
+    def turn_flow
       @hacker.turn
+      winner?
       @master.automated_clues(@hacker.chosen_colors)
+      @hacker.clear_selection
       display_results
     end
 
