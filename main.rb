@@ -124,7 +124,11 @@ module Mastermind
     def turn
       puts "Master turn to choose colors"
       @colors.choice_loop
-      p @colors.combination      
+      p "combination: ", combination      
+    end
+
+    def combination
+      @colors.combination
     end
 
     def automated_clues(hacker_combination)
@@ -173,6 +177,16 @@ module Mastermind
       puts "Hacker turn"
       @colors.choice_loop
       @colors.add_record
+      p "combination: ", combination
+      p "history: ", history
+    end
+
+    def history
+      @colors.history
+    end
+
+    def combination
+      @colors.combination
     end
   end
 
