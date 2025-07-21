@@ -65,7 +65,6 @@ module Mastermind
     def initialize
       @colors = ['red', 'blue', 'orange', 'yellow', 'green', 'purple']
       @combination = Array.new
-      @history = Array.new
     end
 
     attr_reader :combination, :history
@@ -97,11 +96,6 @@ module Mastermind
     def clear
       @combination = []
     end
-
-    def add_record
-      @history.push(@combination)
-    end
-
   end
 
   class HackerColors < Colors
