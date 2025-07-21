@@ -8,21 +8,20 @@ module Mastermind
 
     def play
       @master.turn
-      @hacker.turn
+      hacking_attemps
     end
 
-    def turn_loop
+    def hacking_attemps
       12.times do
         turn_flow
       end
     end
 
     def turn_flow
-      @hacker.turn
-      winner?
-      #@master.automated_clues(@hacker.chosen_colors)
-      @hacker.clear_selection
-      display_results
+      @hacker.turn  #Hacker
+      winner? #Game
+      #@master.automated_clues(@hacker.chosen_colors) # Clues
+      #display_results #Game
     end
 
     def display_results
@@ -163,6 +162,7 @@ module Mastermind
 
     def turn
       puts "Hacker turn"
+      @colors.clear
       @colors.choice_loop
       @colors.add_record
       p "combination: ", combination
