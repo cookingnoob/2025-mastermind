@@ -1,33 +1,14 @@
 require 'io/console'
 module Mastermind
   class Game
-    def initialize(master_colors, hacker_colors)
-      @master = Master.new(master_colors)
-      @hacker = Hacker.new(hacker_colors)
+    def initialize(master, hacker)
+      @master = master
+      @hacker = hacker
     end
 
     def play
- #     choose_rol
       @master.turn
       @hacker.turn
-    end
-
-    # def choose_rol
-    #   puts 'choose if you want to be master or hacker? m/h'
-    #   gets.chomp
-    #   @master = true  if rol == 'h'
-    #   @hacker = true if rol == 'm'
-    # end
-
-    def computer_master_human_hacker
-      puts 'missing logic for computer choice'
-      turn_loop
-      puts "Master won as the combination was not discovered! #{@master.combination}"
-    end
-    
-    def human_master_computer_hacker
-      @master.turn
-      puts 'missing logic for simulating hacker'
     end
 
     def turn_loop
@@ -203,5 +184,7 @@ include Mastermind
 
 master_colors = Colors.new
 hacker_colors = HackerColors.new
-game = Game.new(master_colors, hacker_colors)
+master = Master.new(master_colors)
+hacker = Hacker.new(hacker_colors)
+game = Game.new(master, hacker)
 game.play
