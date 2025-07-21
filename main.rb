@@ -3,7 +3,7 @@ module Mastermind
   class Game
     def initialize
       @master = Master.new(Colors.new)
-      @hacker = Hacker.new
+      @hacker = Hacker.new(HackerColors.new)
     end
 
     def play
@@ -176,8 +176,8 @@ module Mastermind
   end
 
   class Hacker
-    def initialize
-      @colors = HackerColors.new
+    def initialize(colors)
+      @colors = colors
     end
 
     def turn
