@@ -59,6 +59,21 @@ module Mastermind
        exit 
      end
     end
+  end
+
+  class Colors
+    def initialize
+      @colors = ['red', 'blue', 'orange', 'yellow', 'green', 'purple']
+      @turn_chosen_colors = Array.new
+      @all_colors = Array.new
+    end
+
+    attr_reader :turn_chosen_colors, :all_colors
+    
+    def choose_color
+      puts "choose 4 colors from 1-6, input one number at a time and then click enter #{@colors}"
+    end
+
 
   end
 
@@ -119,6 +134,8 @@ module Mastermind
       clues_array = clues_loop([],hacker_combination)
       @clues.push(clues_array)
     end
+    # controller for redirecting actions if master is a bot
+    # same for hacker
 
     def clues
       puts 'W if it is in index and color, B if its only the color, empty space if its none'
@@ -137,6 +154,7 @@ module Mastermind
       array.shuffle
     end
 
+    
     def clues_conditionals(c, i, array)
       if self.combination.find_index(c) == i
         array.push('B') 
@@ -164,5 +182,5 @@ end
 
 include Mastermind
 
-game = Game.new
-game.play
+colors = Colors.new
+p colors.choose_color
