@@ -89,9 +89,9 @@ module Mastermind
     end
 
     def choice_loop
-      color_prompt
+      prompt
       4.times do 
-        choose_color!
+        choose!
       end
     end
     
@@ -155,8 +155,8 @@ module Mastermind
 
     def turn
       puts "Master turn to choose colors"
-      self.colors_loop
-      @combination = @chosen_colors      
+      @colors.choice_loop
+      p @colors.combination      
     end
 
     def automated_clues(hacker_combination)
