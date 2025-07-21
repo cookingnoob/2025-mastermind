@@ -5,8 +5,8 @@ module Mastermind
 
     def initialize
       @colors = ['red', 'blue', 'orange', 'yellow', 'green', 'purple']
-      @master = Master.new(self)
-      @hacker = Hacker.new(self)
+      @master = Master.new
+      @hacker = Hacker.new
     end
 
     def play
@@ -105,18 +105,10 @@ module Mastermind
 
   end
 
-  class Player
-    def initialize(game)
-      @game = game
-      @colors = Colors.new
-    end
-
-  end
-
-  class Master < Player
+  class Master
     attr_reader :clues
-    def initialize(game)
-      super(game)
+    def initialize
+      @colors = Colors.new
       @bot = false
       @clues = Array.new
     end
@@ -167,10 +159,9 @@ module Mastermind
     end
   end
 
-  class Hacker < Player
-    def initialize(game)
-      super(game)
-      @bot = false  
+  class Hacker
+    def initialize
+      @colors = Colors.new
     end
 
     def turn
