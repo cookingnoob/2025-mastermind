@@ -8,7 +8,7 @@ module Mastermind
 
     def play
       @master.turn
-      hacking_attemps
+      attemps
     end
 
     def attemps
@@ -20,7 +20,7 @@ module Mastermind
     def round
       @hacker.turn  #Hacker
       winner? #Game
-      #@master.automated_clues(@hacker.chosen_colors) # Clues
+      #@master.clues(@hacker.chosen_colors) # Clues
       #display_results #Game
     end
 
@@ -100,6 +100,7 @@ module Mastermind
       end
     end
   end
+  
   class Master
     attr_reader :clues
     def initialize(colors)
@@ -132,6 +133,36 @@ module Mastermind
         clues.push(gets.chomp)
       end
       @clues.push(clues)
+    end
+
+    def clues_loop(array, hacker_combination)
+      hacker_combination.each_with_index do |c, i|
+           clues_conditionals(c, i, array)
+        end
+        
+      array.shuffle
+    end
+
+    
+    def clues_conditionals(c, i, array)
+      if self.combination.find_index(c) == i
+        array.push('B') 
+      elsif self.combination.include?(c)
+        array.push('W')
+      else 
+        array.push(' ') 
+      end
+    end
+  end
+
+  class AutomatedMaster < Master
+    def initialize
+      super
+    end
+  
+    def automated_clues(hacker_combination)
+      clues_array = clues_loop([],hacker_combination)
+      @clues.push(clues_array)
     end
 
     def clues_loop(array, hacker_combination)
