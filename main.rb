@@ -104,6 +104,12 @@ module Mastermind
 
   end
 
+  class Clues
+    def initialize
+      @current = Array.new
+      @history = Array.new
+    end
+  end
   class Master
     attr_reader :clues
     def initialize
