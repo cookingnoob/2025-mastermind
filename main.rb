@@ -45,14 +45,14 @@ module Mastermind
     end
 
     def display_results
-      @hacker.combination.each_with_index do |comb, i|
+      @hacker.history.each_with_index do |comb, i|
         puts "turn #{i + 1} combination: #{comb}        clues: #{@master.clues[i]}"
         puts '---------------------------------------------------------------------'
       end
     end
 
     def winner?
-     if @hacker.chosen_colors ==  @master.combination
+     if @hacker.combination ==  @master.combination
        puts "Hacker has guessed the combination, hacker wins!!"
        exit 
      end
