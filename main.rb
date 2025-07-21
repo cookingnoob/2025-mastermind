@@ -10,16 +10,17 @@ module Mastermind
     end
 
     def play
-      choose_rol
-      turn_loop
+ #     choose_rol
+      @master.turn
+      @hacker.turn
     end
 
-    def choose_rol
-      puts 'choose if you want to be master or hacker? m/h'
-      gets.chomp
-      @master = true  if rol == 'h'
-      @hacker = true if rol == 'm'
-    end
+    # def choose_rol
+    #   puts 'choose if you want to be master or hacker? m/h'
+    #   gets.chomp
+    #   @master = true  if rol == 'h'
+    #   @hacker = true if rol == 'm'
+    # end
 
     def computer_master_human_hacker
       puts 'missing logic for computer choice'
@@ -41,7 +42,7 @@ module Mastermind
     def turn_flow
       @hacker.turn
       winner?
-      @master.automated_clues(@hacker.chosen_colors)
+      #@master.automated_clues(@hacker.chosen_colors)
       @hacker.clear_selection
       display_results
     end
@@ -80,6 +81,7 @@ module Mastermind
   class Player
     def initialize(game)
       @game = game
+      @colors = Colors.new
       @chosen_colors = Array.new
       @combination = Array.new
     end
@@ -167,7 +169,8 @@ module Mastermind
   end
 
   class Hacker < Player
-    def initialize
+    def initialize(game)
+      super(game)
       @bot = false  
     end
 
@@ -182,5 +185,5 @@ end
 
 include Mastermind
 
-colors = Colors.new
-p colors.choose_color
+game = Game.new
+game.play
