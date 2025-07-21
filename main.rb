@@ -2,7 +2,7 @@ require 'io/console'
 module Mastermind
   class Game
     def initialize
-      @master = Master.new
+      @master = Master.new(Colors.new)
       @hacker = Hacker.new
     end
 
@@ -123,8 +123,8 @@ module Mastermind
   end
   class Master
     attr_reader :clues
-    def initialize
-      @colors = Colors.new
+    def initialize(colors)
+      @colors = colors
       @bot = false
       @clues = Array.new
     end
