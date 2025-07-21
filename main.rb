@@ -4,7 +4,6 @@ module Mastermind
     attr_reader :colors
 
     def initialize
-      @colors = ['red', 'blue', 'orange', 'yellow', 'green', 'purple']
       @master = Master.new
       @hacker = Hacker.new
     end
@@ -83,7 +82,7 @@ module Mastermind
     def right_input?(index)
       if index < 0 || index > 5 || index.class != Integer
         puts 'wrong input!'
-        choose_color!
+        choose!
       end
       true
     end
