@@ -11,13 +11,13 @@ module Mastermind
       hacking_attemps
     end
 
-    def hacking_attemps
+    def attemps
       12.times do
-        turn_flow
+        hacking
       end
     end
 
-    def turn_flow
+    def round
       @hacker.turn  #Hacker
       winner? #Game
       #@master.automated_clues(@hacker.chosen_colors) # Clues
@@ -38,7 +38,6 @@ module Mastermind
      end
     end
   end
-
   class Colors
     def initialize
       @colors = ['red', 'blue', 'orange', 'yellow', 'green', 'purple']
