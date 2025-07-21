@@ -109,38 +109,6 @@ module Mastermind
     def initialize(game)
       @game = game
       @colors = Colors.new
-      @chosen_colors = Array.new
-      @combination = Array.new
-    end
-    attr_reader :chosen_colors, :combination
-
-    def color_to_choose
-      puts "choose 4 colors from 1-6, input one number at a time and then click enter #{@game.colors}"
-    end
-
-
-    def choose_colors!
-      color_index = STDIN.noecho(&:gets)
-      @chosen_colors.push(@game.colors[color_index.to_i - 1]) if right_input?(color_index.to_i - 1)
-    end
-
-    def right_input?(index)
-      if index < 0 || index > 5 || index.class != Integer
-        puts 'wrong input!'
-        choose_colors!
-      end
-      true
-    end
-
-    def colors_loop
-      color_to_choose
-      4.times do 
-        choose_colors!
-      end
-    end
-    
-    def clear_selection
-      @chosen_colors = []
     end
 
   end
