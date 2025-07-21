@@ -1,9 +1,9 @@
 require 'io/console'
 module Mastermind
   class Game
-    def initialize
-      @master = Master.new(Colors.new)
-      @hacker = Hacker.new(HackerColors.new)
+    def initialize(master_colors, hacker_colors)
+      @master = Master.new(master_colors)
+      @hacker = Hacker.new(hacker_colors)
     end
 
     def play
@@ -201,5 +201,7 @@ end
 
 include Mastermind
 
-game = Game.new
+master_colors = Colors.new
+hacker_colors = HackerColors.new
+game = Game.new(master_colors, hacker_colors)
 game.play
