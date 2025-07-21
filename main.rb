@@ -99,7 +99,7 @@ module Mastermind
       @combination = []
     end
 
-    def hacker_history
+    def add_record
       @history.push(@combination)
     end
 
@@ -203,8 +203,8 @@ module Mastermind
 
     def turn
       puts "Hacker turn"
-      self.colors_loop
-      @combination.push(@chosen_colors)
+      @colors.choice_loop
+      @colors.add_record
     end
   end
 
