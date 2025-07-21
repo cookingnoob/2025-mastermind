@@ -1,8 +1,6 @@
 require 'io/console'
 module Mastermind
   class Game
-    attr_reader :colors
-
     def initialize
       @master = Master.new
       @hacker = Hacker.new
