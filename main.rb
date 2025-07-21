@@ -65,40 +65,43 @@ module Mastermind
   class Colors
     def initialize
       @colors = ['red', 'blue', 'orange', 'yellow', 'green', 'purple']
-      @turn_chosen_colors = Array.new
-      @all_colors = Array.new
+      @turn_choice = Array.new
+      @history = Array.new
     end
 
-    attr_reader :turn_chosen_colors, :all_colors
+    attr_reader :turn_choice, :all_colors
     
-    def color_prompt
+    def prompt
       puts "choose 4 colors from 1-6, input one number at a time and then click enter #{@colors}"
     end
 
-    def choose_colors!
+    def choose!
       color_index = STDIN.noecho(&:gets)
-      @turn_chosen_colors.push(@colors[color_index.to_i - 1]) if right_input?(color_index.to_i - 1)
+      @turn_choice.push(@colors[color_index.to_i - 1]) if right_input?(color_index.to_i - 1)
     end
 
     def right_input?(index)
       if index < 0 || index > 5 || index.class != Integer
         puts 'wrong input!'
-        choose_colors!
+        choose_color!
       end
       true
     end
 
-    def colors_loop
+    def choice_loop
       color_prompt
       4.times do 
-        choose_colors!
+        choose_color!
       end
     end
     
-    def clear_selection
-      @chosen_colors = []
+    def clear
+      @turn_choice = []
     end
 
+    def hacker_history
+      @history.push(@turn_choice)
+    end
 
   end
 
