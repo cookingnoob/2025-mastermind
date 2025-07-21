@@ -104,6 +104,18 @@ module Mastermind
 
   end
 
+  class HackerColors < Colors
+    def initialize
+      super
+      @history = Array.new
+    end
+
+    attr_reader :history
+
+    def add_record
+      @history.push(@combination)
+    end
+  end
   class Clues
     def initialize
       @current = Array.new
@@ -166,7 +178,7 @@ module Mastermind
 
   class Hacker
     def initialize
-      @colors = Colors.new
+      @colors = HackerColors.new
     end
 
     def turn
