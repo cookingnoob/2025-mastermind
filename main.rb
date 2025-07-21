@@ -113,6 +113,13 @@ module Mastermind
       @current = Array.new
       @history = Array.new
     end
+    
+    def clues
+      puts 'W if it is in index and color, B if its only the color, empty space if its none'
+      4.times do
+        @current.push(gets.chomp)
+      end
+    end
   end
   class Master
     attr_reader :clues
