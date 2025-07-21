@@ -13,7 +13,7 @@ module Mastermind
 
     def attemps
       12.times do
-        hacking
+        round
       end
     end
 
