@@ -31,10 +31,7 @@ module Mastermind
     end
 
     def compare_combinations
-      puts "Hacker don't cheat and look away
-           secret: #{@master.secret}
-           hack: #{@hacker.combination}
-      "
+     @master.comparing(@hacker.combination)
     end
 
     def display_results
@@ -204,6 +201,13 @@ module Mastermind
       @clues.clear
       @clues.choice_loop
       @clues.add_record
+    end
+
+    def comparing(hacker_combination)
+           puts "Hacker don't cheat and look away
+           secret: #{@master.secret}
+           hack: #{hacker_combination}
+      "
     end
 
     def history
