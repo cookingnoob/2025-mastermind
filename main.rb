@@ -166,26 +166,26 @@ module Mastermind
   class AutomatedClues < Clues
   
     def automated_clues(hacker_combination)
-      clues_array = clues_loop([],hacker_combination)
+      clues_array = clues_loop(hacker_combination)
       @clues.push(clues_array)
     end
 
-    def clues_loop(array, hacker_combination)
+    def clues_loop(hacker_combination)
       hacker_combination.each_with_index do |c, i|
-           clues_conditionals(c, i, array)
+           clues_conditionals(c, i)
         end
         
-      array.shuffle
+      @combination.shuffle
     end
 
     
-    def clues_conditionals(c, i, array)
+    def clues_conditionals(c, i)
       if self.combination.find_index(c) == i
-        array.push('B') 
+        @combination.push('B') 
       elsif self.combination.include?(c)
-        array.push('W')
+        @combination.push('W')
       else 
-        array.push(' ') 
+        @combination.push(' ') 
       end
     end
   end
