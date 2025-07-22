@@ -7,7 +7,7 @@ module Mastermind
     end
 
     def play
-      @master.turn
+      @master.create_secret_code
       attemps
     end
 
@@ -18,7 +18,7 @@ module Mastermind
     end
 
     def round
-      @hacker.turn  #Hacker
+      @hacker.hack_attempt  #Hacker
       winner? #Game
       #@master.clues(@hacker.chosen_colors) # Clues
       #display_results #Game
@@ -89,14 +89,14 @@ module Mastermind
   end
   
   class Master
-    attr_reader :clues
+    attr_reader :clues, :history
     def initialize(colors)
       @colors = colors
       @clues = Array.new
       @history = Array.new
     end
 
-    def turn
+    def create_secret_code
       puts "Master turn to choose colors"
       @colors.choice_loop
       p "combination: ", combination      
@@ -161,7 +161,7 @@ module Mastermind
       @colors = colors
     end
 
-    def turn
+    def crack_attempt
       puts "Hacker turn"
       @colors.clear
       @colors.choice_loop
