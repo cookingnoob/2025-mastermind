@@ -93,6 +93,25 @@ module Mastermind
       @clues = Array.new
       @history = Array.new
     end
+    
+    def clues
+      clues_prompt      
+      4.times do
+        @clues.push(gets.chomp)
+      end
+    end
+
+    def clues_prompt
+      puts 'W if it is in index and color, B if its only the color, empty space if its none'
+    end
+
+    def clean
+      @clues = Array.new
+    end
+
+    def add_record
+      @history.push(@clues)
+    end
   end
 
   class Master
