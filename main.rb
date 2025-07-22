@@ -144,6 +144,7 @@ module Mastermind
   end
 
   class AutomatedClues < Clues
+  
     def automated_clues(hacker_combination)
       clues_array = clues_loop([],hacker_combination)
       @clues.push(clues_array)
@@ -196,10 +197,14 @@ module Mastermind
   end
 
   class AutomatedMaster < Master
-    def initialize(colors)
-      super(colors)
+    def initialize(colors, clues)
+      super(colors, clues)
     end
-  
+  #create_secret_code selecciona 4 colores diferentes al asar
+  #secret expone su secreto
+  #
+  #give_clues metodo para checar por cada elemento del 
+  #history para enviar el historial de clues 
 
   end
 
