@@ -93,6 +93,7 @@ module Mastermind
     def initialize(colors)
       @colors = colors
       @clues = Array.new
+      @history = Array.new
     end
 
     def turn
@@ -110,6 +111,14 @@ module Mastermind
       4.times do
         @clues.push(gets.chomp)
       end
+    end
+
+    def clean
+      @clues = Array.new
+    end
+
+    def add_record
+      @history.push(@clues)
     end
   end
 
