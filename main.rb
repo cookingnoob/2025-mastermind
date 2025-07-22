@@ -8,10 +8,19 @@ module Mastermind
 
     def play
       @master.create_secret_code
+      round
+    end
+    
+    def round
       @hacker.crack_attempt
+      winner?
+      master_turn
+      display_results
+    end
+
+    def master_turn
       compare_combinations
       @master.give_clues
-      display_results
     end
 
     def compare_combinations
