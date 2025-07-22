@@ -8,12 +8,19 @@ module Mastermind
 
     def play
       @master.create_secret_code
-      round
+      hacking_attemps
+      master_won
+    end
+
+    def hacking_attemps
+      12.times do
+        round
+      end
     end
     
     def round
       @hacker.crack_attempt
-      winner?
+      hacker_won?
       master_turn
       display_results
     end
@@ -37,11 +44,15 @@ module Mastermind
       end
     end
 
-    def winner?
+    def hacker_won?
      if @hacker.combination ==  @master.secret
        puts "Hacker has guessed the combination, hacker wins!!"
        exit 
      end
+    end
+
+    def master_won
+      puts "Master won as his code was never discovered! #{@master.secret}"
     end
   end
   class Colors
