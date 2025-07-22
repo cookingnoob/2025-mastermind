@@ -201,6 +201,10 @@ module Mastermind
       super(colors, clues)
     end
   #create_secret_code selecciona 4 colores diferentes al asar
+  def create_secret_code
+    puts "Master is creating a secret code..."
+    puts "Code is ready, try to hack it!"
+  end
   #secret expone su secreto
   #
   #give_clues metodo para checar por cada elemento del 
