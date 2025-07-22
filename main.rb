@@ -106,13 +106,6 @@ module Mastermind
       @colors.combination
     end
 
-    def automated_clues(hacker_combination)
-      clues_array = clues_loop([],hacker_combination)
-      @clues.push(clues_array)
-    end
-    # controller for redirecting actions if master is a bot
-    # same for hacker
-
     def clues
       puts 'W if it is in index and color, B if its only the color, empty space if its none'
       clues = []
@@ -120,25 +113,6 @@ module Mastermind
         clues.push(gets.chomp)
       end
       @clues.push(clues)
-    end
-
-    def clues_loop(array, hacker_combination)
-      hacker_combination.each_with_index do |c, i|
-           clues_conditionals(c, i, array)
-        end
-        
-      array.shuffle
-    end
-
-    
-    def clues_conditionals(c, i, array)
-      if self.combination.find_index(c) == i
-        array.push('B') 
-      elsif self.combination.include?(c)
-        array.push('W')
-      else 
-        array.push(' ') 
-      end
     end
   end
 
