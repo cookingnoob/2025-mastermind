@@ -123,8 +123,8 @@ module Mastermind
   end
 
   class AutomatedMaster < Master
-    def initialize
-      super
+    def initialize(colors)
+      super(colors)
     end
   
     def automated_clues(hacker_combination)
