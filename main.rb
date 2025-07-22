@@ -205,7 +205,7 @@ module Mastermind
 
     def comparing(hacker_combination)
            puts "Hacker don't cheat and look away
-           secret: #{@master.secret}
+           secret: #{secret}
            hack: #{hacker_combination}
       "
     end
@@ -263,13 +263,12 @@ end
 include Mastermind
 
 hacker_colors = HackerColors.new
+hacker = Hacker.new(hacker_colors)
 colors_bot_master = AutomatedMasterColors.new
 clues_bot = AutomatedClues.new
 bot_master = AutomatedMaster.new(colors_bot_master, clues_bot) 
-hacker = Hacker.new(hacker_colors)
 game = Game.new(bot_master, hacker)
 game.play
-
-#master_colors = Colors.new
+# master_colors = Colors.new
 # human_clues = Clues.new
 # human_master = Master.new(master_colors, human_clues)
