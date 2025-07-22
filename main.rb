@@ -16,7 +16,7 @@ module Mastermind
 
     def compare_combinations
       puts "Hacker don't cheat and look away
-           secret: #{@master.peep_secret}
+           secret: #{@master.secret}
            hack: #{@hacker.combination}
       "
     end
@@ -29,7 +29,7 @@ module Mastermind
     end
 
     def winner?
-     if @hacker.combination ==  @master.combination
+     if @hacker.combination ==  @master.secret
        puts "Hacker has guessed the combination, hacker wins!!"
        exit 
      end
@@ -134,7 +134,7 @@ module Mastermind
       @colors.choice_loop
     end
 
-    def peep_secret
+    def secret
       @colors.combination
     end
 
