@@ -8,7 +8,8 @@ module Mastermind
 
     def play
       @master.create_secret_code
-      attemps
+      @hacker.crack_attempt
+      @master.give_clues
     end
 
     def attemps
@@ -95,18 +96,19 @@ module Mastermind
     end
 
     def choose!
-      @combination.push(gets.chomp) if right_input?
+      input = gets.chomp
+      @combination.push(input) if right_input?(input)
     end
 
     def choice_loop
-      clues_prompt      
+      prompt      
       4.times do
         choose!
       end
     end
 
     def right_input?(clue)
-      return true if clue.match?(/[WwTt]/)
+      return true if clue.match?(/[WwBb]/)
       puts "wrong input"
       choose!
     end
