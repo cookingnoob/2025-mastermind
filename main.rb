@@ -44,7 +44,7 @@ module Mastermind
       @combination = Array.new
     end
 
-    attr_reader :combination, :history
+    attr_reader :combination
     
     def prompt
       puts "choose 4 colors from 1-6, input one number at a time and then click enter #{@colors}"
@@ -90,27 +90,27 @@ module Mastermind
   
   class Clues
     def initialize
-      @clues = Array.new
+      @combination = Array.new
       @history = Array.new
     end
-    
-    def clues
+
+    def choice_loop
       clues_prompt      
       4.times do
-        @clues.push(gets.chomp)
+        @combination.push(gets.chomp)
       end
     end
 
-    def clues_prompt
+    def prompt
       puts 'W if it is in index and color, B if its only the color, empty space if its none'
     end
 
     def clean
-      @clues = Array.new
+      @combination = Array.new
     end
 
     def add_record
-      @history.push(@clues)
+      @history.push(@combination)
     end
   end
 
