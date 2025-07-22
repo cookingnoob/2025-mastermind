@@ -143,7 +143,30 @@ module Mastermind
     end
   end
 
-  class AutomatedClues
+  class AutomatedClues < Clues
+    def automated_clues(hacker_combination)
+      clues_array = clues_loop([],hacker_combination)
+      @clues.push(clues_array)
+    end
+
+    def clues_loop(array, hacker_combination)
+      hacker_combination.each_with_index do |c, i|
+           clues_conditionals(c, i, array)
+        end
+        
+      array.shuffle
+    end
+
+    
+    def clues_conditionals(c, i, array)
+      if self.combination.find_index(c) == i
+        array.push('B') 
+      elsif self.combination.include?(c)
+        array.push('W')
+      else 
+        array.push(' ') 
+      end
+    end
   end
 
   class Master
@@ -177,29 +200,7 @@ module Mastermind
       super(colors)
     end
   
-    def automated_clues(hacker_combination)
-      clues_array = clues_loop([],hacker_combination)
-      @clues.push(clues_array)
-    end
 
-    def clues_loop(array, hacker_combination)
-      hacker_combination.each_with_index do |c, i|
-           clues_conditionals(c, i, array)
-        end
-        
-      array.shuffle
-    end
-
-    
-    def clues_conditionals(c, i, array)
-      if self.combination.find_index(c) == i
-        array.push('B') 
-      elsif self.combination.include?(c)
-        array.push('W')
-      else 
-        array.push(' ') 
-      end
-    end
   end
 
   class Hacker
