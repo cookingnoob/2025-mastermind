@@ -108,13 +108,6 @@ module Mastermind
       end
     end
 
-    def choice_loop
-      prompt
-      4.times do
-        choose!
-      end
-    end
-
     def prompt 
       puts "Master is creating the secret code..."
     end
