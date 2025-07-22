@@ -92,6 +92,33 @@ module Mastermind
     end
   end
 
+  class AutomatedMasterColors < Colors
+    def choose!
+      color_index = rand(0..5)
+      puts "color chosen is #{@colors[color_index]}"
+      @combination.push(@colors[color_index]) if right_input?(@colors[color_index])
+      puts "combination is #{@combination}"
+    end
+
+    def right_input?(color)
+      if @combination.include?(color)
+        choose!
+      else
+        true
+      end
+    end
+
+    def choice_loop
+      prompt
+      4.times do
+        choose!
+      end
+    end
+
+    def prompt 
+      puts "Master is creating the secret code..."
+    end
+  end
   class HackerColors < Colors
     def initialize
       super
@@ -202,7 +229,7 @@ module Mastermind
     end
   #create_secret_code selecciona 4 colores diferentes al asar
   def create_secret_code
-    puts "Master is creating a secret code..."
+    @colors.choice_loop
     puts "Code is ready, try to hack it!"
   end
   #secret expone su secreto
@@ -243,10 +270,14 @@ end
 
 include Mastermind
 
-master_colors = Colors.new
 hacker_colors = HackerColors.new
-human_clues = Clues.new
-master = Master.new(master_colors, human_clues)
+colors_bot_master = AutomatedMasterColors.new
+clues_bot = AutomatedClues.new
+bot_master = AutomatedMaster.new(colors_bot_master, clues_bot) 
 hacker = Hacker.new(hacker_colors)
-game = Game.new(master, hacker)
+game = Game.new(bot_master, hacker)
 game.play
+
+#master_colors = Colors.new
+# human_clues = Clues.new
+# human_master = Master.new(master_colors, human_clues)
