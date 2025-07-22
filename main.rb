@@ -94,10 +94,14 @@ module Mastermind
       @history = Array.new
     end
 
+    def choose!
+      @combination.push(gets.chomp)
+    end
+
     def choice_loop
       clues_prompt      
       4.times do
-        @combination.push(gets.chomp)
+        choose!
       end
     end
 
@@ -105,7 +109,7 @@ module Mastermind
       puts 'W if it is in index and color, B if its only the color, empty space if its none'
     end
 
-    def clean
+    def clear
       @combination = Array.new
     end
 
