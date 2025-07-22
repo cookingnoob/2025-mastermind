@@ -88,6 +88,13 @@ module Mastermind
     end
   end
   
+  class Clues
+    def initialize
+      @clues = Array.new
+      @history = Array.new
+    end
+  end
+
   class Master
     attr_reader :clues, :history
     def initialize(colors)
