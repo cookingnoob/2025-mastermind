@@ -143,6 +143,9 @@ module Mastermind
     end
   end
 
+  class AutomatedClues
+  end
+
   class Master
     def initialize(colors, clues)
       @colors = colors
