@@ -94,6 +94,7 @@ module Mastermind
       @combination = Array.new
       @history = Array.new
     end
+    attr_reader :combination, :history
 
     def choose!
       input = gets.chomp
@@ -127,7 +128,6 @@ module Mastermind
   end
 
   class Master
-    attr_reader :clues, :history
     def initialize(colors, clues)
       @colors = colors
       @clues = clues
