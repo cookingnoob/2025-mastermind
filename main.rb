@@ -92,7 +92,6 @@ module Mastermind
     attr_reader :clues
     def initialize(colors)
       @colors = colors
-      @bot = false
       @clues = Array.new
     end
 
