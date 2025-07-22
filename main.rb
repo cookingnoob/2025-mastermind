@@ -9,20 +9,15 @@ module Mastermind
     def play
       @master.create_secret_code
       @hacker.crack_attempt
+      compare_combinations
       @master.give_clues
     end
 
-    def attemps
-      12.times do
-        round
-      end
-    end
-
-    def round
-      @hacker.hack_attempt  #Hacker
-      winner? #Game
-      #@master.clues(@hacker.chosen_colors) # Clues
-      #display_results #Game
+    def compare_combinations
+      puts "Hacker don't cheat and look away
+           secret: #{@master.peep_secret}
+           hack: #{@hacker.combination}
+      "
     end
 
     def display_results
@@ -136,10 +131,9 @@ module Mastermind
     def create_secret_code
       puts "Master turn to choose colors"
       @colors.choice_loop
-      p "combination: ", combination      
     end
 
-    def combination
+    def peep_secret
       @colors.combination
     end
 
