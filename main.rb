@@ -92,9 +92,7 @@ module Mastermind
   class AutomatedMasterColors < Colors
     def choose!
       color_index = rand(0..5)
-      puts "color chosen is #{@colors[color_index]}"
       @combination.push(@colors[color_index]) if right_input?(@colors[color_index])
-      puts "combination is #{@combination}"
     end
 
     def right_input?(color)
@@ -162,19 +160,20 @@ module Mastermind
 
   class AutomatedClues < Clues
 
-    def clues_loop(hacker_combination)
+    def choice_loop(hacker_combination, secret)
       hacker_combination.each_with_index do |c, i|
-           clues_conditionals(c, i)
+           choose!(c, i, secret)
         end
-        
-      @combination.shuffle
     end
 
+    def shuffle
+      @combination = @combination.shuffle
+    end
     
-    def clues_conditionals(c, i)
-      if self.combination.find_index(c) == i
+    def choose!(c, i, secret)
+      if secret.find_index(c) == i
         @combination.push('B') 
-      elsif self.combination.include?(c)
+      elsif secret.include?(c)
         @combination.push('W')
       else 
         @combination.push(' ') 
@@ -219,15 +218,21 @@ module Mastermind
     def initialize(colors, clues)
       super(colors, clues)
     end
-  #create_secret_code selecciona 4 colores diferentes al asar
-  def create_secret_code
-    @colors.choice_loop
-    puts "Code is ready, try to hack it!"
-  end
-  #secret expone su secreto
-  #
-  #give_clues metodo para checar por cada elemento del 
-  #history para enviar el historial de clues 
+
+    def create_secret_code
+      @colors.choice_loop
+      puts "Code is ready, try to hack it!"
+    end
+
+    def comparing(hacker_combination)
+      @clues.clear
+      @clues.choice_loop(hacker_combination,secret)
+    end
+
+    def give_clues
+      @clues.shuffle
+      @clues.add_record
+    end
 
   end
 
