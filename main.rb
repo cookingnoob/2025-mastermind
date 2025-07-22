@@ -126,10 +126,9 @@ module Mastermind
 
   class Master
     attr_reader :clues, :history
-    def initialize(colors)
+    def initialize(colors, clues)
       @colors = colors
-      @clues = Array.new
-      @history = Array.new
+      @clues = clues
     end
 
     def create_secret_code
