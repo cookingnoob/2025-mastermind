@@ -107,11 +107,9 @@ module Mastermind
 
     def clues
       puts 'W if it is in index and color, B if its only the color, empty space if its none'
-      clues = []
       4.times do
-        clues.push(gets.chomp)
+        @clues.push(gets.chomp)
       end
-      @clues.push(clues)
     end
   end
 
