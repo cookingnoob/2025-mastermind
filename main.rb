@@ -95,7 +95,7 @@ module Mastermind
     end
 
     def choose!
-      @combination.push(gets.chomp)
+      @combination.push(gets.chomp) if right_input?
     end
 
     def choice_loop
@@ -103,6 +103,12 @@ module Mastermind
       4.times do
         choose!
       end
+    end
+
+    def right_input?(clue)
+      return true if clue.match?(/[WwTt]/)
+      puts "wrong input"
+      choose!
     end
 
     def prompt
