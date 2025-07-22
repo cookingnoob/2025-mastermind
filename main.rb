@@ -140,6 +140,10 @@ module Mastermind
     def combination
       @colors.combination
     end
+
+    def give_clues
+      @clues.choice_loop
+    end
   end
 
   class AutomatedMaster < Master
@@ -207,7 +211,8 @@ include Mastermind
 
 master_colors = Colors.new
 hacker_colors = HackerColors.new
-master = Master.new(master_colors)
+human_clues = Clues.new
+master = Master.new(master_colors, human_clues)
 hacker = Hacker.new(hacker_colors)
 game = Game.new(master, hacker)
 game.play
