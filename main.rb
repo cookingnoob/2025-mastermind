@@ -175,6 +175,12 @@ module Mastermind
     end
   end
 
+  class AutomatedHacker < Hacker
+    def initialize(colors)
+      super(colors)
+    end
+  end
+
 end
 
 include Mastermind
