@@ -11,6 +11,7 @@ module Mastermind
       @hacker.crack_attempt
       compare_combinations
       @master.give_clues
+      display_results
     end
 
     def compare_combinations
@@ -22,7 +23,7 @@ module Mastermind
 
     def display_results
       @hacker.history.each_with_index do |comb, i|
-        puts "turn #{i + 1} combination: #{comb}        clues: #{@master.clues[i]}"
+        puts "turn #{i + 1} combination: #{comb}        clues: #{@master.history[i]}"
         puts '---------------------------------------------------------------------'
       end
     end
@@ -104,7 +105,7 @@ module Mastermind
     end
 
     def right_input?(clue)
-      return true if clue.match?(/[WwBb]/)
+      return true if clue.match?(/[WwBb ]/)
       puts "wrong input"
       choose!
     end
@@ -138,7 +139,13 @@ module Mastermind
     end
 
     def give_clues
+      @clues.clear
       @clues.choice_loop
+      @clues.add_record
+    end
+
+    def history
+      @clues.history
     end
   end
 
@@ -182,8 +189,6 @@ module Mastermind
       @colors.clear
       @colors.choice_loop
       @colors.add_record
-      p "combination: ", combination
-      p "history: ", history
     end
 
     def history
