@@ -164,11 +164,6 @@ module Mastermind
   end
 
   class AutomatedClues < Clues
-  
-    def automated_clues(hacker_combination)
-      clues_array = clues_loop(hacker_combination)
-      @clues.push(clues_array)
-    end
 
     def clues_loop(hacker_combination)
       hacker_combination.each_with_index do |c, i|
