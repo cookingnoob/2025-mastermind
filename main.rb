@@ -254,19 +254,6 @@ module Mastermind
       @colors.combination
     end
   end
-  class HackerColors < Colors
-    def initialize
-      super
-      @history = Array.new
-    end
-
-    attr_reader :history
-
-    def add_record
-      @history.push(@combination)
-    end
-  end
-
   class AutomatedHacker < Hacker
     def initialize(colors)
       super(colors)
@@ -282,14 +269,14 @@ end
 
 include Mastermind
 
-# hacker_colors = HackerColors.new
-# hacker = Hacker.new(hacker_colors)
+hacker_colors = Colors.new
+hacker = Hacker.new(hacker_colors)
 master_colors = Colors.new
 human_clues = Clues.new
 human_master = Master.new(master_colors, human_clues)
-automated_hacker_colors = AutomatedHackerColors.new
-automated_hacker = AutomatedHacker.new(automated_hacker_colors)
-game = Game.new(human_master, automated_hacker)
+# automated_hacker_colors = AutomatedHackerColors.new
+# automated_hacker = AutomatedHacker.new(automated_hacker_colors)
+game = Game.new(human_master, hacker)
 game.play
 
 # colors_bot_master = AutomatedMasterColors.new
