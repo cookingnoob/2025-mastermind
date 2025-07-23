@@ -51,6 +51,39 @@ module Mastermind
     def master_won
       puts "Master won as his code was never discovered! #{@master.secret}"
     end
+  end 
+
+  class Master
+    def initialize(colors, clues)
+      @colors = colors
+      @clues = clues
+    end
+
+    def create_secret_code
+      puts "Master turn to choose colors"
+      @colors.choice_loop
+    end
+
+    def secret
+      @colors.combination
+    end
+
+    def give_clues
+      @clues.clear
+      @clues.choice_loop
+      @clues.add_record
+    end
+
+    def comparing(hacker_combination)
+           puts "Hacker don't cheat and look away
+           secret: #{secret}
+           hack: #{hacker_combination}
+      "
+    end
+
+    def history
+      @clues.history
+    end
   end
   class Colors
     def initialize
@@ -90,38 +123,6 @@ module Mastermind
       @combination = []
     end
   end
-
-  class AutomatedMasterColors < Colors
-    def choose!
-      color_index = rand(0..5)
-      @combination.push(@colors[color_index]) if right_input?(@colors[color_index])
-    end
-
-    def right_input?(color)
-      if @combination.include?(color)
-        choose!
-      else
-        true
-      end
-    end
-
-    def prompt 
-      puts "Master is creating the secret code..."
-    end
-  end
-  class HackerColors < Colors
-    def initialize
-      super
-      @history = Array.new
-    end
-
-    attr_reader :history
-
-    def add_record
-      @history.push(@combination)
-    end
-  end
-  
   class Clues
     def initialize
       @combination = Array.new
@@ -160,6 +161,46 @@ module Mastermind
     end
   end
 
+  class AutomatedMaster < Master
+    def initialize(colors, clues)
+      super(colors, clues)
+    end
+
+    def create_secret_code
+      @colors.choice_loop
+      puts "Code is ready, try to hack it!"
+    end
+
+    def comparing(hacker_combination)
+      @clues.clear
+      @clues.choice_loop(hacker_combination,secret)
+    end
+
+    def give_clues
+      @clues.shuffle
+      @clues.add_record
+    end
+
+  end
+  class AutomatedMasterColors < Colors
+    def choose!
+      color_index = rand(0..5)
+      @combination.push(@colors[color_index]) if right_input?(@colors[color_index])
+    end
+
+    def right_input?(color)
+      if @combination.include?(color)
+        choose!
+        false
+      else
+        true
+      end
+    end
+
+    def prompt 
+      puts "Master is creating the secret code..."
+    end
+  end
   class AutomatedClues < Clues
 
     def choice_loop(hacker_combination, secret)
@@ -183,61 +224,6 @@ module Mastermind
     end
   end
 
-  class Master
-    def initialize(colors, clues)
-      @colors = colors
-      @clues = clues
-    end
-
-    def create_secret_code
-      puts "Master turn to choose colors"
-      @colors.choice_loop
-    end
-
-    def secret
-      @colors.combination
-    end
-
-    def give_clues
-      @clues.clear
-      @clues.choice_loop
-      @clues.add_record
-    end
-
-    def comparing(hacker_combination)
-           puts "Hacker don't cheat and look away
-           secret: #{secret}
-           hack: #{hacker_combination}
-      "
-    end
-
-    def history
-      @clues.history
-    end
-  end
-
-  class AutomatedMaster < Master
-    def initialize(colors, clues)
-      super(colors, clues)
-    end
-
-    def create_secret_code
-      @colors.choice_loop
-      puts "Code is ready, try to hack it!"
-    end
-
-    def comparing(hacker_combination)
-      @clues.clear
-      @clues.choice_loop(hacker_combination,secret)
-    end
-
-    def give_clues
-      @clues.shuffle
-      @clues.add_record
-    end
-
-  end
-
   class Hacker
     def initialize(colors)
       @colors = colors
@@ -256,6 +242,18 @@ module Mastermind
 
     def combination
       @colors.combination
+    end
+  end
+  class HackerColors < Colors
+    def initialize
+      super
+      @history = Array.new
+    end
+
+    attr_reader :history
+
+    def add_record
+      @history.push(@combination)
     end
   end
 
