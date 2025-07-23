@@ -1,5 +1,9 @@
 require 'io/console'
 module Mastermind
+
+  class Setup
+    
+  end
   class Game
     def initialize(master, hacker)
       @master = master
@@ -89,9 +93,10 @@ module Mastermind
     def initialize
       @colors = ['red', 'blue', 'orange', 'yellow', 'green', 'purple']
       @combination = Array.new
+      @history = Array.new
     end
 
-    attr_reader :combination
+    attr_reader :combination, :history
     
     def prompt
       puts "choose 4 colors from 1-6, input one number at a time and then click enter #{@colors}"
@@ -121,6 +126,11 @@ module Mastermind
     
     def clear
       @combination = []
+    end
+        
+
+    def add_record
+      @history.push(@combination)
     end
   end
   class Clues
@@ -262,26 +272,26 @@ module Mastermind
       super(colors)
     end
   end
-
-  #crack_attempt
-  #if blank
-end
-
-class AutomatedHackerColors < AutomatedMasterColors
-  def prompt
-    puts "trying to crack the code..."
+  class AutomatedHackerColors < AutomatedMasterColors
+    def prompt
+      puts "trying to crack the code..."
+    end
   end
 end
 
+
 include Mastermind
 
-hacker_colors = HackerColors.new
-hacker = Hacker.new(hacker_colors)
-colors_bot_master = AutomatedMasterColors.new
-clues_bot = AutomatedClues.new
-bot_master = AutomatedMaster.new(colors_bot_master, clues_bot) 
-game = Game.new(bot_master, hacker)
+# hacker_colors = HackerColors.new
+# hacker = Hacker.new(hacker_colors)
+master_colors = Colors.new
+human_clues = Clues.new
+human_master = Master.new(master_colors, human_clues)
+automated_hacker_colors = AutomatedHackerColors.new
+automated_hacker = AutomatedHacker.new(automated_hacker_colors)
+game = Game.new(human_master, automated_hacker)
 game.play
-# master_colors = Colors.new
-# human_clues = Clues.new
-# human_master = Master.new(master_colors, human_clues)
+
+# colors_bot_master = AutomatedMasterColors.new
+# clues_bot = AutomatedClues.new
+# bot_master = AutomatedMaster.new(colors_bot_master, clues_bot) 
