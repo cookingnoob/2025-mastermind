@@ -2,9 +2,10 @@ require 'io/console'
 module Mastermind
 
   class Setup
+  
     def self.master_selection
       puts "H if you want a human master | A if you want an automated master"
-      choice = gets.chomp
+      choice = user_input
       if choice == "H"
          Master.new(Colors.new, Clues.new)
       elsif choice == "A"
@@ -17,16 +18,24 @@ module Mastermind
 
     def self.hacker_selection
       puts "H if you want a human hacker | A if you want an automated hacker"
-      choice = gets.chomp
+      self.choice_flow(user_input, Hacker.new(Colors.new), AutomatedHacker.new(AutomatedHackerColors.new))
+    end
+    
+    def self.choice_flow(choice,human, automated)
       if choice == "H"
-        Hacker.new(Colors.new)
+        human
       elsif choice == 'A'
-        AutomatedHacker.new(AutomatedHackerColors.new)
+        automated
       else
         puts "wrong input, try again"
         hacker_selection
       end
     end
+
+    def self. user_input
+      gets.chomp
+    end
+  
   end
   class Game
     def initialize(master, hacker)
