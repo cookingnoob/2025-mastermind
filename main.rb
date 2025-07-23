@@ -73,8 +73,10 @@ module Mastermind
       if index < 0 || index > 5 || index.class != Integer
         puts 'wrong input!'
         choose!
+        false
+      else
+        true
       end
-      true
     end
 
     def choice_loop
@@ -263,6 +265,8 @@ module Mastermind
     end
   end
 
+  #crack_attempt
+  #if blank
 end
 
 include Mastermind
