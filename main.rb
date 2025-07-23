@@ -267,7 +267,7 @@ module Mastermind
   #if blank
 end
 
-class AutomatedHackerColors < AutomatedHackerColors
+class AutomatedHackerColors < AutomatedMasterColors
   def prompt
     puts "trying to crack the code..."
   end
