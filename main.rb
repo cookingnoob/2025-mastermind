@@ -5,15 +5,7 @@ module Mastermind
   
     def self.master_selection
       puts "H if you want a human master | A if you want an automated master"
-      choice = user_input
-      if choice == "H"
-         Master.new(Colors.new, Clues.new)
-      elsif choice == "A"
-        AutomatedMaster.new(AutomatedMasterColors.new, AutomatedClues.new) 
-      else
-        puts "Wrong input, try again"
-        master_selection
-      end
+      self.choice_flow(user_input, Master.new(Colors.new, Clues.new), AutomatedMaster.new(AutomatedMasterColors.new, AutomatedClues.new) )
     end
 
     def self.hacker_selection
