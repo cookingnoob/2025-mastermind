@@ -267,6 +267,12 @@ module Mastermind
   #if blank
 end
 
+class AutomatedHackerColors < AutomatedHackerColors
+  def prompt
+    puts "trying to crack the code..."
+  end
+end
+
 include Mastermind
 
 hacker_colors = HackerColors.new
