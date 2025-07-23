@@ -4,9 +4,10 @@ module Mastermind
   class Setup
     def self.master_selection
       puts "H if you want a human master | A if you want an automated master"
-      if gets.chomp == "H"
+      choice = gets.chomp
+      if choice == "H"
          Master.new(Colors.new, Clues.new)
-      elsif gets.chomp == "A"
+      elsif choice == "A"
         AutomatedMaster.new(AutomatedMasterColors.new, AutomatedClues.new) 
       else
         puts "Wrong input, try again"
@@ -14,8 +15,17 @@ module Mastermind
       end
     end
 
-    def hacker_selection
+    def self.hacker_selection
       puts "H if you want a human hacker | A if you want an automated hacker"
+      choice = gets.chomp
+      if choice == "H"
+        Hacker.new(Colors.new)
+      elsif choice == 'A'
+        AutomatedHacker.new(AutomatedHackerColors.new)
+      else
+        puts "wrong input, try again"
+        hacker_selection
+      end
     end
   end
   class Game
@@ -284,15 +294,5 @@ end
 include Mastermind
 
 
-hacker_colors = Colors.new
-hacker = Hacker.new(hacker_colors)
-
-# human_master = Master.new(Colors.new, Clues.new)
-# automated_hacker_colors = AutomatedHackerColors.new
-# automated_hacker = AutomatedHacker.new(automated_hacker_colors)
-game = Game.new(Setup.master_selection, hacker)
+game = Game.new(Setup.master_selection, Setup.hacker_selection)
 game.play
-
-# colors_bot_master = AutomatedMasterColors.new
-# clues_bot = AutomatedClues.new
-# bot_master = AutomatedMaster.new(AutomatedMasterColors.new, AutomatedClues.new) 
